@@ -65,7 +65,6 @@ describe('User', () => {
                 .put(`${path}/${newUser.name}`)
                 .send(newUser)
                 .then(result => {
-                    expect(result).to.throw(Error);
                     expect(result.status).to.equal(200);
                     expect(result.text).to.equal('User Updated');
                 });

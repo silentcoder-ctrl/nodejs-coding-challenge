@@ -3,21 +3,21 @@ import {UserService} from "./user.service";
 import {User} from "./user.interfaces";
 
 export class UserController {
-    service = new UserService();
+    userService = new UserService();
 
     constructor() {
     }
 
     public getUsers = (request: Request, response: Response) => {
         response.send({
-            users: this.service.getUsers()
+            users: this.userService.getUsers()
         });
     }
 
     public create = async (request: Request, response: Response, next: NextFunction) => {
         const user: User = request.body;
         try {
-            this.service.create(user);
+            this.userService.create(user);
             response.send({
                 status: 200,
                 text: 'New User Added'
@@ -31,10 +31,10 @@ export class UserController {
         const user: User = request.body;
         const id = request.params.id;
         if (!id) {
-            next("Invalid resource requested");
+            next("Invalid resource id");
         }
         try {
-            this.service.update(id, user);
+            this.userService.update(id, user);
             response.send({
                 status: 200,
                 text: "User Updated"
@@ -51,7 +51,7 @@ export class UserController {
         }
 
         try {
-            this.service.delete(id);
+            this.userService.delete(id);
             response.send({
                 status: 200
             });
